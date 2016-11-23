@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dirty COW Test</string>
+
+    <string name="vulnerable_title">Vulnerable</string>
+    <string name="vulnerable_text">***** Your system is vulnerable to DitryCOW !!! *****</string>
+
+    <string name="not_vulnerable_title">Not Vulnerable</string>
+    <string name="not_vulnerable_text">Your system is NOT vulnerable. You are safe :)</string>
+
+    <string name="button_start">Start Test</string>
+    <string name="button_abort">Abort</string>
+    <string name="button_test_again">Test Again</string>
+</resources>
