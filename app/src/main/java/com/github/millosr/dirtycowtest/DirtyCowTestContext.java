@@ -1,4 +1,4 @@
-package millosr.github.com.dirtycowtest;
+package com.github.millosr.dirtycowtest;
 
 /**
  * Created by Milos on 11/22/2016.

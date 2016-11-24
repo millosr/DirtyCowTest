@@ -1,4 +1,4 @@
-package millosr.github.com.dirtycowtest;
+package com.github.millosr.dirtycowtest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("millosr.github.com.dirtycowtest", appContext.getPackageName());
+        assertEquals("com.github.millosr.dirtycowtest", appContext.getPackageName());
     }
 }

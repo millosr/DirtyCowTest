@@ -17,7 +17,7 @@ static int stopLoop = 0;
 static int f;
 
 JNIEXPORT void JNICALL
-Java_millosr_github_com_dirtycowtest_DirtyCowTest_openTestFile(JNIEnv *env, jobject instance,
+Java_com_github_millosr_dirtycowtest_DirtyCowTest_openTestFile(JNIEnv *env, jobject instance,
                                                                jstring filename_) {
     const char *filename = (*env)->GetStringUTFChars(env, filename_, 0);
 
@@ -35,7 +35,7 @@ Java_millosr_github_com_dirtycowtest_DirtyCowTest_openTestFile(JNIEnv *env, jobj
 }
 
 JNIEXPORT void JNICALL
-Java_millosr_github_com_dirtycowtest_DirtyCowTest_madviceLoop(JNIEnv *env, jobject instance) {
+Java_com_github_millosr_dirtycowtest_DirtyCowTest_madviceLoop(JNIEnv *env, jobject instance) {
     jclass cls = (*env)->GetObjectClass(env, instance);
     jmethodID methodId = (*env)->GetMethodID(env, cls, "setTestProgress", "(I)V");
     LOGI("methodId = %d", methodId);
@@ -53,7 +53,7 @@ Java_millosr_github_com_dirtycowtest_DirtyCowTest_madviceLoop(JNIEnv *env, jobje
 }
 
 JNIEXPORT void JNICALL
-Java_millosr_github_com_dirtycowtest_DirtyCowTest_procselfmemLoop(JNIEnv *env, jobject instance,
+Java_com_github_millosr_dirtycowtest_DirtyCowTest_procselfmemLoop(JNIEnv *env, jobject instance,
                                                                   jstring replacement_) {
     const char *replacement = (*env)->GetStringUTFChars(env, replacement_, 0);
 
@@ -68,11 +68,11 @@ Java_millosr_github_com_dirtycowtest_DirtyCowTest_procselfmemLoop(JNIEnv *env, j
 }
 
 JNIEXPORT void JNICALL
-Java_millosr_github_com_dirtycowtest_DirtyCowTest_closeTestFile(JNIEnv *env, jobject instance) {
+Java_com_github_millosr_dirtycowtest_DirtyCowTest_closeTestFile(JNIEnv *env, jobject instance) {
     close(f);
 }
 
 JNIEXPORT void JNICALL
-Java_millosr_github_com_dirtycowtest_DirtyCowTest_stopLoops(JNIEnv *env, jobject instance) {
+Java_com_github_millosr_dirtycowtest_DirtyCowTest_stopLoops(JNIEnv *env, jobject instance) {
     stopLoop = 1;
 }

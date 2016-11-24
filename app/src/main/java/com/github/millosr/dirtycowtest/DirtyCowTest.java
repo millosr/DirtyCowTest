@@ -1,7 +1,7 @@
-package millosr.github.com.dirtycowtest;
+package com.github.millosr.dirtycowtest;
 
+import android.os.Environment;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,11 +16,12 @@ import java.util.Arrays;
 public class DirtyCowTest {
     private static final String TAG = "DirtyCowTest";
 
-    private static final String TEST_FILE_NAME = "dirty_cow_test_file";
+    //private static final String TEST_FILE_DIR = "/sdcard/DirtyCowTest";
+    private static final String TEST_FILE = "/sdcard/dirty_cow_test_file";
     private static final String CONTENT = "..............................\n";
     private static final String REPLACEMENT = "1234567890";
 
-    private String filename;
+    //private String filename;
     private boolean vulnerable = false;
     private boolean aborted = false;
 
@@ -37,7 +38,8 @@ public class DirtyCowTest {
     public DirtyCowTest(DirtyCowTestContext context) {
         this.context = context;
 
-        this.filename = context.getFilesPath() + File.separator + TEST_FILE_NAME;
+        //this.filename = context.getFilesPath() + File.separator + TEST_FILE_NAME;
+        //this.filename = TEST_FILE_NAME;
     }
 
     public void abort() {
@@ -56,9 +58,9 @@ public class DirtyCowTest {
         aborted = false;
         running = true;
 
-        createFile(filename);
+        createFile();
 
-        openTestFile(filename);
+        openTestFile(TEST_FILE);
 
         final Thread t1 = new Thread() {
             public void run() {
@@ -108,15 +110,22 @@ public class DirtyCowTest {
         controlThread.start();
     }
 
-    private void createFile(String fileName) {
+    private void createFile() {
         try {
-            File newFile = new File(fileName);
-            newFile.delete();
-            newFile.createNewFile();
+            File root = null;
+            root = Environment.getExternalStorageDirectory();
+            logInfo("path = " +root.getAbsolutePath());
+            File fileDir = new File(root.getAbsolutePath()+"/dirtyCowTest/");
+            fileDir.mkdirs();
+
+            File newFile = new File(fileDir, "test_file");
+            //newFile.mkdirs();
+            //newFile.delete();
+            //newFile.createNewFile();
             FileWriter fw = new FileWriter(newFile);
             fw.append(CONTENT);
             fw.close();
-            changePermissions(filename);
+            //changePermissions(TEST_FILE);
         } catch (Exception e) {
             logError("Error creating file", e);
         }
@@ -129,7 +138,7 @@ public class DirtyCowTest {
 
     private void testReplacement() {
         logInfo("Test loop started");
-        File file = new File(filename);
+        File file = new File(TEST_FILE);
         String s;
         int len = REPLACEMENT.length();
         char [] buff = new char[len];

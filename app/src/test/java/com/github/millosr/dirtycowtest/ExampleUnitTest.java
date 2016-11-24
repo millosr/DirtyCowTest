@@ -1,4 +1,4 @@
-package millosr.github.com.dirtycowtest;
+package com.github.millosr.dirtycowtest;
 
 import org.junit.Test;
 

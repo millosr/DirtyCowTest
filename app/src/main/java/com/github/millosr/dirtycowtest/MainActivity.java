@@ -1,20 +1,15 @@
-package millosr.github.com.dirtycowtest;
+package com.github.millosr.dirtycowtest;
 
 import android.app.AlertDialog;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import millosr.github.com.dirtycowtest.R;
 
 public class MainActivity extends AppCompatActivity implements DirtyCowTestContext {
 
