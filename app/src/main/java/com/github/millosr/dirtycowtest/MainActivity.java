@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import millosr.github.com.dirtycowtest.R;
-
 public class MainActivity extends AppCompatActivity implements DirtyCowTestContext {
 
     // Used to load the 'native-lib' library on application startup.

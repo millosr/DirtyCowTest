@@ -16,12 +16,11 @@ import java.util.Arrays;
 public class DirtyCowTest {
     private static final String TAG = "DirtyCowTest";
 
-    //private static final String TEST_FILE_DIR = "/sdcard/DirtyCowTest";
-    private static final String TEST_FILE = "/sdcard/dirty_cow_test_file";
+    private static final String TEST_FILE_NAME = "dirty_cow_test_file";
     private static final String CONTENT = "..............................\n";
     private static final String REPLACEMENT = "1234567890";
 
-    //private String filename;
+    private String filename;
     private boolean vulnerable = false;
     private boolean aborted = false;
 
@@ -38,8 +37,7 @@ public class DirtyCowTest {
     public DirtyCowTest(DirtyCowTestContext context) {
         this.context = context;
 
-        //this.filename = context.getFilesPath() + File.separator + TEST_FILE_NAME;
-        //this.filename = TEST_FILE_NAME;
+        this.filename = context.getFilesPath() + File.separator + TEST_FILE_NAME;
     }
 
     public void abort() {
@@ -60,7 +58,7 @@ public class DirtyCowTest {
 
         createFile();
 
-        openTestFile(TEST_FILE);
+        openTestFile(filename);
 
         final Thread t1 = new Thread() {
             public void run() {
@@ -112,20 +110,13 @@ public class DirtyCowTest {
 
     private void createFile() {
         try {
-            File root = null;
-            root = Environment.getExternalStorageDirectory();
-            logInfo("path = " +root.getAbsolutePath());
-            File fileDir = new File(root.getAbsolutePath()+"/dirtyCowTest/");
-            fileDir.mkdirs();
-
-            File newFile = new File(fileDir, "test_file");
-            //newFile.mkdirs();
-            //newFile.delete();
-            //newFile.createNewFile();
+            File newFile = new File(filename);
+            newFile.delete();
+            newFile.createNewFile();
             FileWriter fw = new FileWriter(newFile);
             fw.append(CONTENT);
             fw.close();
-            //changePermissions(TEST_FILE);
+            changePermissions(filename);
         } catch (Exception e) {
             logError("Error creating file", e);
         }
@@ -138,7 +129,7 @@ public class DirtyCowTest {
 
     private void testReplacement() {
         logInfo("Test loop started");
-        File file = new File(TEST_FILE);
+        File file = new File(filename);
         String s;
         int len = REPLACEMENT.length();
         char [] buff = new char[len];
@@ -146,9 +137,11 @@ public class DirtyCowTest {
 
         FileReader fr = null;
         try {
-            while (running) {
+            while (running && !vulnerable) {
                 fr = new FileReader(file);
                 fr.read(buff, 0, len);
+                fr.close();
+
                 if (Arrays.equals(buff, replacement)) {
                     vulnerable = true;
                     stopLoops();
@@ -156,12 +149,9 @@ public class DirtyCowTest {
             }
         } catch (IOException e) {
             logError("Error reading file", e);
-        } finally {
             try {
                 fr.close();
-            } catch (Exception e) {
-                logError("Error closing file", e);
-            }
+            } catch (Exception e2) {}
         }
         logInfo("Test loop finished");
     }
